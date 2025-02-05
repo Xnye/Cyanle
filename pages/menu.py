@@ -78,8 +78,9 @@ class Menu:
             self.quit()
             
         elif event.type in (pygame.MOUSEBUTTONDOWN, pygame.MOUSEMOTION):
-            self.button_manager.handle_events(event)
-            self.about_button_manager.handle_events(event)
+            self.button_manager.handle_events(event, pygame.Rect(200, 140, 400, 300) if self.about_window else None)
+            if self.about_window:
+                self.about_button_manager.handle_events(event)
                 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
@@ -91,36 +92,31 @@ class Menu:
 
     # 渲染界面
     def _render(self):
+        def printf(t, text, x, y, style="text", color="white", fcolor=None):
+            t.append((self.fonts[style].render(text, color, fcolor)[0], (x, y)))
+        
+        def drawf(t):
+            for surface, pos in t:
+                self.screen.blit(surface, pos)
+        
         self.screen.fill((0, 0, 0))
+        t = []
+        printf(t, "CYANLE", 30, 30, "title")
+        printf(t, "-REVIVAL-                v 0.2", 30, 85, "version")
+        drawf(t)
         
-        # 标题
-        self.fonts["title"].render_to(
-            self.screen, (30, 30), 
-            "CYANLE", COLORS["white"]
-        )
-
-        # 版本号
-        self.fonts["version"].render_to(
-            self.screen, (30, 85), 
-            "-REVIVAL-                v 0.2", COLORS["white"]
-        )
-        
-        # FPS数字
-        self.fonts["fps"].render_to(
-            self.screen, (0, 0), 
-            f"FPS: {self.clock.get_fps():.2f}", COLORS["white"]
-        )
-        
-        draw_fps_curve(self.fps_history, SCREEN_SIZE, self.screen, COLORS["fps_curve"])
+        # draw_fps_curve(self.fps_history, SCREEN_SIZE, self.screen, COLORS["fps_curve"])
         self.button_manager.draw(self.screen)
         
         if self.about_window:
             self.screen.fill("white", (200, 140, 400, 300))
             self.screen.fill("black", (201, 141, 398, 298))
-            self.fonts["text"].render_to(self.screen, (220, 160), "about", COLORS["white"])
-            self.fonts["text"].render_to(self.screen, (220, 185), "CYANLE -REVIVAL-", COLORS["white"])
-            self.fonts["text"].render_to(self.screen, (220, 200), "Made by Xnye", COLORS["white"])
-            self.fonts["text"].render_to(self.screen, (220, 215), "chatgpt怎么这么菜啊", COLORS["white"])
+            t = []
+            printf(t, "about", 220, 160)
+            printf(t, "CYANLE -REVIVAL-", 220, 185)
+            printf(t, "Made by Xnye", 220, 200)
+            printf(t, "chatgpt怎么这么菜啊", 220, 215)
+            drawf(t)
             self.about_button_manager.draw(self.screen)
         
         pygame.display.flip()

@@ -29,14 +29,16 @@ class Game:
                     running = False
                 if self.current_scene:
                     self.current_scene._handle_events(event)
-
+                    
             # 更新和渲染当前场景
             if self.current_scene:
                 self.current_scene._update()
                 self.current_scene._render()
 
             clock.tick(60)
-
+            
+            pygame.display.set_caption(f"CYANLE -REVIVAL- v0.2  |  FPS={clock.get_fps():.2f}")
+                    
         pygame.quit()
 
 if __name__ == "__main__":
