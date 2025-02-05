@@ -23,3 +23,9 @@ CYANLE -REVIVAL-
 乱搞启动
 
 —— Xnye 2025.02.05
+
+****
+
+Thanks to
+
+「Tools」[python.org](https://www.python.org/), [pygame.org](https://www.pygame.org/), [deepseek.com](https://www.deepseek.com/), [code.visualstudio.com](https://code.visualstudio.com/) 「Fonts」Geo [fonts.google.com](https://fonts.google.com/specimen/Geo/license), TakWolf/fusion-pixel-font [github.com](https://github.com/TakWolf/fusion-pixel-font), Unifont [unifoundry.com](https://unifoundry.com/unifont)
